@@ -21,11 +21,12 @@ Settings: the user defines a Markdown template with placeholders that map to Goo
 
 Plain JavaScript, no build step, no dependencies. Do not introduce a bundler or framework without agreement.
 
-- `manifest.json`: MV3; permissions `activeTab`, `scripting`, `storage`; host `https://www.goodreads.com/*`.
+- `manifest.json`: MV3; permissions `activeTab`, `scripting`, `storage`; hosts `https://www.goodreads.com/*` plus the Goodreads image hosts (`m.media-amazon.com`, `i.gr-assets.com`, `images.gr-assets.com`), which the popup needs to download the cover.
 - `scraper.js`: injected into the book page by `popup.js` (`chrome.scripting.executeScript` with `files`). It must stay a self-contained classic script whose last expression is the result. It reads the JSON-LD block and the Next.js `__NEXT_DATA__` Apollo state (`Book:` / `Contributor:` entries), not the visual HTML, which is more stable.
 - `lib/template.js`: placeholder engine (`{{name}}`, filters `join`, `default`, `wikilink`) and the list of placeholders.
 - `lib/defaults.js`: default template and loading from `chrome.storage.sync`.
-- `popup.html/js`: editable preview and "Copy to clipboard". `options.html/js`: template editor (opens in its own tab, has a Close button).
+- `lib/markdown.js`: tiny Markdown to HTML converter (headings, bullets, images, links, bold) for the HTML clipboard flavor.
+- `popup.html/js`: editable preview, "Copy to clipboard" (text) and "Copy with cover image" (text/plain plus text/html with the cover as `data:` URI). `options.html/js`: template editor (opens in its own tab, has a Close button).
 - `icons/`: `icon.svg` is the source (book with "GR"); `icon-16/32/48/128.png` are rendered from it and referenced in `manifest.json`. Re-render the PNGs after changing the SVG.
 - `test/`: `node --test`; fixture `test/fixtures/catcher-in-the-rye.html` is a trimmed real Goodreads page.
 
@@ -40,7 +41,7 @@ Goodreads data points found: JSON-LD (`name`, `image`, `numberOfPages`, `isbn`, 
 ## Conventions
 
 - Manifest V3 (service worker instead of background page, no remotely hosted code).
-- Request the fewest possible permissions in `manifest.json`; restrict host access to Goodreads domains (`https://www.goodreads.com/*`).
+- Request the fewest possible permissions in `manifest.json`; restrict host access to Goodreads and its image hosts.
 - No tracking and no external requests without explicit agreement.
 - Keep changes small and follow the existing code style.
 
