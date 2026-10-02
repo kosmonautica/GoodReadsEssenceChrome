@@ -7,14 +7,15 @@ Chrome extension (Manifest V3) that extracts the essence of a book from a Goodre
 1. The user opens a book page on Goodreads in Chrome.
 2. The user clicks the extension icon (popup).
 3. The extension loads the Markdown template from its settings and fills it with data scraped from the book page.
-4. The popup shows a preview of the filled template with a "Copy to clipboard" button.
+4. The popup shows an editable preview of the filled template with two buttons: "Copy to clipboard" (text) and "Copy with cover image" (text plus the downloaded cover).
 5. The user pastes the result into Obsidian manually.
 
 Settings: the user defines a Markdown template with placeholders that map to Goodreads data points. The available data points are determined by analysing Goodreads pages. Booksidian (https://community.obsidian.md/plugins/booksidian-plugin) is the reference for placeholder naming.
 
 ## Project status
 
-- First working version exists (popup, settings, scraper, template engine). It is covered by Node tests.
+- Working and used in Chrome: popup with preview, two copy buttons, settings page, scraper, template engine with filters, icon. Covered by Node tests.
+- Open question: how Obsidian handles the HTML paste of "Copy with cover image" (image as attachment or not) is the user's to confirm. Fallbacks if it misbehaves: a cover download button, or embedding the cover as a base64 `data:` URI in the Markdown text.
 - Update this file whenever a structural decision is made (build tooling, folder layout, commands).
 
 ## Architecture
@@ -54,6 +55,8 @@ Goodreads data points found: JSON-LD (`name`, `image`, `numberOfPages`, `isbn`, 
 1. Open `chrome://extensions` and enable Developer mode.
 2. Click "Load unpacked" and select the project (or build output) folder.
 3. Reload the extension there after code changes.
+
+Automated checks: `npm test`. A real-browser check is possible with Playwright's Chromium loading the folder as an extension. The extension has no service worker, so derive its id from the folder path (or read it from `chrome://extensions`). Goodreads blocks headless browsers with an AWS WAF challenge, so serve `test/fixtures/catcher-in-the-rye.html` via request routing instead of the live page.
 
 ## Git
 
