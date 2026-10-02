@@ -22,7 +22,7 @@ The user defines a Markdown template in the extension settings. Placeholders map
 
 Lists (`authors`, `genres`) are comma-separated by default. Filters: `{{authors|join:" / "}}`, `{{rating|default:"n/a"}}`, `{{authors|wikilink}}` (wraps every author, or any value, in an Obsidian `[[link]]`; characters not allowed in note names are removed).
 
-Default template: title, cover image, authors as `[[wikilinks]]` (one per author), publication date, rating, pages and the Goodreads page as a Markdown link. A template saved in the settings overrides the default; use "Reset to default" there to pick up a changed default.
+Default template: title, cover image (Obsidian size `|300`), authors as `[[wikilinks]]` (one per author), publication date, rating, pages and the Goodreads page as a Markdown link. A template saved in the settings overrides the default; use "Reset to default" there to pick up a changed default.
 
 ## Installation (development)
 
