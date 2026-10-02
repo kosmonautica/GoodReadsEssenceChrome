@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import { render } from '../lib/template.js';
 import { DEFAULT_TEMPLATE } from '../lib/defaults.js';
+import { markdownToHtml } from '../lib/markdown.js';
 
 const html = fs.readFileSync(new URL('./fixtures/catcher-in-the-rye.html', import.meta.url), 'utf8');
 const scraperSource = fs.readFileSync(new URL('../scraper.js', import.meta.url), 'utf8');
@@ -43,8 +44,10 @@ test('default template renders all data points', () => {
   assert.match(out, /^# The Catcher in the Rye/);
   assert.match(out, /!\[cover\|300\]\(https:\/\/.*5107\.jpg\)/);
   assert.match(out, /\*\*Author:\*\* \[\[J\.D\. Salinger\]\]/);
-  assert.match(out, /\*\*Goodreads:\*\* \[The Catcher in the Rye\]\(https:\/\/www\.goodreads\.com\/book\/show\/5107\.The_Catcher_in_the_Rye\)/);
+  assert.match(out, /\*\*URL Goodreads:\*\* \[The Catcher in the Rye\]\(https:\/\/www\.goodreads\.com\/book\/show\/5107\.The_Catcher_in_the_Rye\)/);
   assert.match(out, /\*\*Pages:\*\* 277/);
+  assert.match(out, /^- \*\*Auf das Buch gestoßen durch:\*\* $/m);
+  assert.match(out, /^- \*\*Erinnert mich an:\*\* $/m);
   assert.doesNotMatch(out, /\{\{/);
 });
 
@@ -59,4 +62,18 @@ test('wikilink filter links every author separately', () => {
   assert.equal(render('{{authors|wikilink|join:" & "}}', { authors: ['A', 'B'] }), '[[A]] & [[B]]');
   assert.equal(render('{{title|wikilink}}', { title: 'What: Is/This?' }), '[[What IsThis]]');
   assert.equal(render('{{authors|wikilink}}', { authors: [] }), '');
+});
+
+test('markdownToHtml embeds the cover and converts the default template', () => {
+  const md = render(DEFAULT_TEMPLATE, book);
+  const html = markdownToHtml(md, (url) => (url === book.cover ? 'data:image/jpeg;base64,AAAA' : url));
+  assert.match(html, /<h1>The Catcher in the Rye<\/h1>/);
+  assert.match(html, /<img src="data:image\/jpeg;base64,AAAA" alt="cover" width="300">/);
+  assert.match(html, /<li><b>Author:<\/b> \[\[J\.D\. Salinger\]\]<\/li>/);
+  assert.match(html, /<a href="https:\/\/www\.goodreads\.com\/book\/show\/5107[^"]*">The Catcher in the Rye<\/a>/);
+  assert.equal((html.match(/<ul>/g) || []).length, 1);
+});
+
+test('markdownToHtml escapes HTML', () => {
+  assert.equal(markdownToHtml('<script>x</script>'), '<p>&lt;script&gt;x&lt;/script&gt;</p>');
 });
