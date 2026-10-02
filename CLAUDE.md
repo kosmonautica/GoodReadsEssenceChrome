@@ -58,4 +58,6 @@ Goodreads data points found: JSON-LD (`name`, `image`, `numberOfPages`, `isbn`, 
 ## Git
 
 - Develop on the assigned feature branch, not directly on the default branch.
-- After pushing, open a draft pull request.
+- After pushing, open a pull request and merge it into `main` right away (squash merge, clean commit title). The user wants every finished change on `main` immediately, without asking again.
+- Start each new change from the latest `main`; the work branch is reset to `origin/main` for that (force-with-lease is fine, its old content is already merged).
+- Keep `README.md` (including the shown default template) in sync when `lib/defaults.js` changes.

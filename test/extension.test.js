@@ -77,3 +77,8 @@ test('markdownToHtml embeds the cover and converts the default template', () => 
 test('markdownToHtml escapes HTML', () => {
   assert.equal(markdownToHtml('<script>x</script>'), '<p>&lt;script&gt;x&lt;/script&gt;</p>');
 });
+
+test('README shows the current default template', () => {
+  const readme = fs.readFileSync(new URL('../README.md', import.meta.url), 'utf8');
+  assert.ok(readme.includes('```markdown\n' + DEFAULT_TEMPLATE + '```'), 'README default template is out of date');
+});
