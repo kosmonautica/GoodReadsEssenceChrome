@@ -2,7 +2,7 @@
 
 A Chrome extension (Manifest V3) that extracts the essence of a book from its Goodreads page and puts it into the clipboard as Markdown, ready to be pasted manually into an Obsidian note.
 
-> Status: first working version. Not yet tested in a real Chrome.
+> Status: first working version.
 
 ## Intended workflow
 
