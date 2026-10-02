@@ -12,9 +12,9 @@
 <body>
   <h1>Markdown template</h1>
   <p>Placeholders: <span id="placeholders"></span></p>
-  <p>Filters: <code>{{authors|join:" / "}}</code>, <code>{{rating|default:"n/a"}}</code></p>
+  <p>Filters: <code>{{authors|join:" / "}}</code>, <code>{{rating|default:"n/a"}}</code>, <code>{{authors|wikilink}}</code> (Obsidian <code>[[links]]</code>, one per author)</p>
   <textarea id="template"></textarea>
-  <p><button id="save">Save</button> <button id="reset">Reset to default</button> <span id="status"></span></p>
+  <p><button id="save">Save</button> <button id="reset">Reset to default</button> <button id="close">Close</button> <span id="status"></span></p>
   <script type="module" src="options.js"></script>
 </body>
 </html>

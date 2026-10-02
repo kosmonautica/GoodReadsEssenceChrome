@@ -42,7 +42,8 @@ test('default template renders all data points', () => {
   const out = render(DEFAULT_TEMPLATE, book);
   assert.match(out, /^# The Catcher in the Rye/);
   assert.match(out, /!\[cover\]\(https:\/\/.*5107\.jpg\)/);
-  assert.match(out, /\*\*Author:\*\* J\.D\. Salinger/);
+  assert.match(out, /\*\*Author:\*\* \[\[J\.D\. Salinger\]\]/);
+  assert.match(out, /\*\*Goodreads:\*\* \[The Catcher in the Rye\]\(https:\/\/www\.goodreads\.com\/book\/show\/5107\.The_Catcher_in_the_Rye\)/);
   assert.match(out, /\*\*Pages:\*\* 277/);
   assert.doesNotMatch(out, /\{\{/);
 });
@@ -51,4 +52,11 @@ test('filters and unknown placeholders', () => {
   assert.equal(render('{{authors|join:" / "}}', { authors: ['A', 'B'] }), 'A / B');
   assert.equal(render('{{x|default:"n/a"}}', { x: '' }), 'n/a');
   assert.equal(render('{{nope}}', {}), '{{nope}}');
+});
+
+test('wikilink filter links every author separately', () => {
+  assert.equal(render('{{authors|wikilink}}', { authors: ['Terry Pratchett', 'Neil Gaiman'] }), '[[Terry Pratchett]], [[Neil Gaiman]]');
+  assert.equal(render('{{authors|wikilink|join:" & "}}', { authors: ['A', 'B'] }), '[[A]] & [[B]]');
+  assert.equal(render('{{title|wikilink}}', { title: 'What: Is/This?' }), '[[What IsThis]]');
+  assert.equal(render('{{authors|wikilink}}', { authors: [] }), '');
 });
