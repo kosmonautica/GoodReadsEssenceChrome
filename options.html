@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>GoodReads Essence settings</title>
+  <style>
+    body { font: 14px system-ui, sans-serif; max-width: 640px; margin: 24px auto; }
+    textarea { width: 100%; height: 300px; box-sizing: border-box; font: 13px ui-monospace, monospace; }
+    code { background: #eee; padding: 1px 4px; }
+  </style>
+</head>
+<body>
+  <h1>Markdown template</h1>
+  <p>Placeholders: <span id="placeholders"></span></p>
+  <p>Filters: <code>{{authors|join:" / "}}</code>, <code>{{rating|default:"n/a"}}</code></p>
+  <textarea id="template"></textarea>
+  <p><button id="save">Save</button> <button id="reset">Reset to default</button> <span id="status"></span></p>
+  <script type="module" src="options.js"></script>
+</body>
+</html>
