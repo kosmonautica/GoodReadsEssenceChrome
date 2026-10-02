@@ -43,7 +43,7 @@ test('default template renders all data points', () => {
   assert.match(out, /^# The Catcher in the Rye/);
   assert.match(out, /!\[cover\|300\]\(https:\/\/.*5107\.jpg\)/);
   assert.match(out, /\*\*Author:\*\* \[\[J\.D\. Salinger\]\]/);
-  assert.match(out, /\*\*Goodreads:\*\* \[The Catcher in the Rye\]\(https:\/\/www\.goodreads\.com\/book\/show\/5107\.The_Catcher_in_the_Rye\)/);
+  assert.match(out, /\*\*URL Goodreads:\*\* \[The Catcher in the Rye\]\(https:\/\/www\.goodreads\.com\/book\/show\/5107\.The_Catcher_in_the_Rye\)/);
   assert.match(out, /\*\*Pages:\*\* 277/);
   assert.doesNotMatch(out, /\{\{/);
 });
