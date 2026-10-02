@@ -2,9 +2,9 @@
 
 A Chrome extension (Manifest V3) that extracts the essence of a book from its Goodreads page and puts it into the clipboard as Markdown, ready to be pasted manually into an Obsidian note.
 
-> Status: first working version.
+> Status: working. Used in Chrome with Obsidian.
 
-## Intended workflow
+## Workflow
 
 1. Browse to a book page on Goodreads in Chrome.
 2. Click the extension icon.
@@ -89,11 +89,30 @@ The button downloads the cover and writes two flavors to the clipboard: `text/pl
 
 The default template also contains two lines without placeholders (`Auf das Buch gestoßen durch:` and `Erinnert mich an:`) that are filled in manually after pasting.
 
-## Installation (development)
+## Installation
 
-1. Clone this repository.
-2. Open `chrome://extensions` and enable Developer mode.
-3. Click "Load unpacked" and select the project folder.
+The extension is not in the Chrome Web Store; it is loaded as an unpacked extension.
+
+1. Get the code: `git clone https://github.com/kosmonautica/GoodReadsEssenceChrome.git`, or download the ZIP of the `main` branch from GitHub and unpack it. Keep the folder where it is; Chrome loads the extension from it.
+2. Open `chrome://extensions` and enable "Developer mode" (top right).
+3. Click "Load unpacked" and select the folder that contains `manifest.json`.
+4. Optional: pin "GoodReads Essence" via the puzzle icon in the toolbar.
+
+## Usage
+
+1. Open a Goodreads book page (`https://www.goodreads.com/book/show/...`).
+2. Click the extension icon. The popup shows the filled template; you can edit the text before copying.
+3. Click "Copy to clipboard" (or "Copy with cover image") and paste into Obsidian.
+
+If the popup reports that no book data was found, make sure you are on a book page. If Goodreads asks you to sign in, sign in and try again.
+
+## Updating
+
+Pull or download the new version into the same folder, then click the reload icon of the extension on `chrome://extensions`. Chrome may ask for new permissions when they changed. A template saved in the settings is kept; use "Reset to default" there to pick up a changed default template.
+
+## Troubleshooting
+
+Errors of the extension are listed under "Errors" on its card at `chrome://extensions`. For the popup, right-click it and choose "Inspect" to open its console.
 
 ## Development
 
