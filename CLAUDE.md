@@ -14,7 +14,7 @@ Settings: the user defines a Markdown template with placeholders that map to Goo
 
 ## Project status
 
-- First working version exists (popup, settings, scraper, template engine). It is covered by Node tests but has not been loaded in a real Chrome yet. No icons yet.
+- First working version exists (popup, settings, scraper, template engine). It is covered by Node tests.
 - Update this file whenever a structural decision is made (build tooling, folder layout, commands).
 
 ## Architecture
@@ -23,9 +23,10 @@ Plain JavaScript, no build step, no dependencies. Do not introduce a bundler or 
 
 - `manifest.json`: MV3; permissions `activeTab`, `scripting`, `storage`; host `https://www.goodreads.com/*`.
 - `scraper.js`: injected into the book page by `popup.js` (`chrome.scripting.executeScript` with `files`). It must stay a self-contained classic script whose last expression is the result. It reads the JSON-LD block and the Next.js `__NEXT_DATA__` Apollo state (`Book:` / `Contributor:` entries), not the visual HTML, which is more stable.
-- `lib/template.js`: placeholder engine (`{{name}}`, filters `join`, `default`) and the list of placeholders.
+- `lib/template.js`: placeholder engine (`{{name}}`, filters `join`, `default`, `wikilink`) and the list of placeholders.
 - `lib/defaults.js`: default template and loading from `chrome.storage.sync`.
-- `popup.html/js`: editable preview and "Copy to clipboard". `options.html/js`: template editor.
+- `popup.html/js`: editable preview and "Copy to clipboard". `options.html/js`: template editor (opens in its own tab, has a Close button).
+- `icons/`: `icon.svg` is the source (book with "GR"); `icon-16/32/48/128.png` are rendered from it and referenced in `manifest.json`. Re-render the PNGs after changing the SVG.
 - `test/`: `node --test`; fixture `test/fixtures/catcher-in-the-rye.html` is a trimmed real Goodreads page.
 
 Goodreads data points found: JSON-LD (`name`, `image`, `numberOfPages`, `isbn`, `author`, `aggregateRating`) and Apollo `Book.details` (`publicationTime` in ms, `publisher`, `isbn13`, `language`), `Book.bookGenres`, `Book.webUrl`, `Book.imageUrl`. Book pages are readable without login. When adding a placeholder, update `scraper.js`, `PLACEHOLDERS` in `lib/template.js`, the README and the tests.

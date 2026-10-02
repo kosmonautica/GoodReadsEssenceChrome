@@ -2,7 +2,7 @@
 
 A Chrome extension (Manifest V3) that extracts the essence of a book from its Goodreads page and puts it into the clipboard as Markdown, ready to be pasted manually into an Obsidian note.
 
-> Status: first working version. Not yet tested in a real Chrome.
+> Status: first working version.
 
 ## Intended workflow
 
@@ -20,9 +20,9 @@ The user defines a Markdown template in the extension settings. Placeholders map
 
 `{{title}}`, `{{authors}}`, `{{publicationDate}}`, `{{publicationYear}}`, `{{rating}}`, `{{ratingsCount}}`, `{{pages}}`, `{{cover}}`, `{{url}}`, `{{isbn}}`, `{{publisher}}`, `{{language}}`, `{{genres}}`, `{{description}}`
 
-Lists (`authors`, `genres`) are comma-separated by default. Filters: `{{authors|join:" / "}}`, `{{rating|default:"n/a"}}`.
+Lists (`authors`, `genres`) are comma-separated by default. Filters: `{{authors|join:" / "}}`, `{{rating|default:"n/a"}}`, `{{authors|wikilink}}` (wraps every author, or any value, in an Obsidian `[[link]]`; characters not allowed in note names are removed).
 
-Default template: title, cover image, author, publication date, rating, pages and the Goodreads URL.
+Default template: title, cover image (Obsidian size `|300`), authors as `[[wikilinks]]` (one per author), publication date, rating, pages and the Goodreads page as a Markdown link. A template saved in the settings overrides the default; use "Reset to default" there to pick up a changed default.
 
 ## Installation (development)
 

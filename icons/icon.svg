@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- pages (visible at the right and bottom edge) -->
+  <rect x="26" y="14" width="86" height="104" rx="8" fill="#e9e1cf"/>
+  <path d="M30 108h82M30 112h82" stroke="#c9bd9f" stroke-width="2"/>
+  <!-- cover -->
+  <rect x="16" y="10" width="86" height="104" rx="8" fill="#5b3a1e"/>
+  <!-- spine -->
+  <rect x="16" y="10" width="14" height="104" rx="8" fill="#382110"/>
+  <rect x="24" y="10" width="6" height="104" fill="#382110"/>
+  <!-- bookmark ribbon -->
+  <path d="M82 114V92l7 6 7-6v22z" fill="#409d69"/>
+  <!-- GR -->
+  <text x="66" y="76" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="44" fill="#f4f1ea">GR</text>
+  <rect x="42" y="30" width="48" height="4" rx="2" fill="#f4f1ea" opacity=".55"/>
+</svg>

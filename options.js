@@ -20,3 +20,9 @@ $('reset').addEventListener('click', async () => {
   $('template').value = DEFAULT_TEMPLATE;
   flash('Reset');
 });
+
+$('close').addEventListener('click', async () => {
+  const tab = await chrome.tabs.getCurrent();
+  if (tab) chrome.tabs.remove(tab.id);
+  else window.close();
+});
